@@ -10,7 +10,7 @@ static BackendBinding* binding = nullptr;
 wgpu::Device CreateCppDawnDevice()
 {
 	instance = std::make_unique<dawn_native::Instance>();
-    instance->SetBackendValidationLevel(dawn_native::BackendValidationLevel::Partial);
+    //instance->SetBackendValidationLevel(dawn_native::BackendValidationLevel::Partial);
 	instance->DiscoverDefaultAdapters();
     dawn_native::Adapter backendAdapter;
     {

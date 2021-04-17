@@ -17,7 +17,7 @@
       <AdditionalDependencies>dawn_proc.dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalDependencies>obj\src\dawn\dawncpp\webgpu_cpp.obj;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalDependencies>obj\src\utils\dawn_utils.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalDependencies>\obj\third_party\vulkan-deps\spirv-tools\src\spvtools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>obj\third_party\vulkan-deps\spirv-tools\src\spvtools.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalDependencies>obj\src\common\common.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
