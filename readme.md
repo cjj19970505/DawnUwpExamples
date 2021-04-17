@@ -1,15 +1,15 @@
 # DawnUwpExample
 
 This repo shows how to use [Dawn](https://dawn.googlesource.com/dawn/) in UWP.  
-
+Dawn with UWP support is developing [here](https://github.com/cjj19970505/dawn/tree/winrt)
 
 # Getting Started
 
 1. Use following commands to clone and build dawn targeting winuwp
 
 ```powershell
-# Clone the repo as "dawn"
-git clone https://dawn.googlesource.com/dawn dawn && cd dawn && git checkout winrt
+# Clone the repo and checkout to 'winrt' branch
+git clone https://github.com/cjj19970505/dawn.git && cd dawn && git checkout winrt
 
 # Bootstrap the gclient configuration
 cp scripts/standalone.gclient .gclient
