@@ -23,4 +23,4 @@ ninja -C .\out\uwp\Release\ dawn_proc_shared dawncpp dawn_native_shared dawn_pla
 ```
 2. Set environment variable `DawnBaseDir` to your Dawn repo location.
 3. Clone this repo, open `DawnUwpExamples.sln` with Visual Studio.
-4. Set Configuration to `Debug` and Platform to `x64`.
+4. Set Configuration to `Release` and Platform to `x64`.
