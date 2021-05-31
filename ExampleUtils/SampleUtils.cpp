@@ -2,11 +2,9 @@
 #include "SampleUtils.h"
 #include <dawn_native/DawnNative.h>
 #include <dawn/dawn_proc.h>
-#include "BackendBinding.h"
 
 static std::unique_ptr<dawn_native::Instance> instance;
-static BackendBinding* binding = nullptr;
-
+static wgpu::Surface surface;
 wgpu::Device CreateCppDawnDevice()
 {
 	instance = std::make_unique<dawn_native::Instance>();
@@ -26,14 +24,27 @@ wgpu::Device CreateCppDawnDevice()
     }
     WGPUDevice backendDevice = backendAdapter.CreateDevice();
     DawnProcTable backendProcs = dawn_native::GetProcs();
-    binding = new BackendBinding(backendDevice);
     dawnProcSetProcs(&backendProcs);
     return wgpu::Device::Acquire(backendDevice);
 }
 
-wgpu::SwapChain GetSwapChain(wgpu::Device& device, winrt::Windows::UI::Core::CoreWindow const& coreWindow)
+wgpu::SwapChain GetSwapChain(wgpu::Device device, winrt::Windows::UI::Core::CoreWindow const& coreWindow)
 {
-    return binding->GetSwapChain(device, coreWindow.as<IUnknown>().get());
+    auto desc = std::make_unique<wgpu::SurfaceDescriptorFromWindowsCoreWindow>();
+    desc->coreWindow = coreWindow.as<IUnknown>().get();
+    std::unique_ptr<wgpu::ChainedStruct> chainedDescriptor = std::move(desc);
+    wgpu::SurfaceDescriptor descriptor;
+    descriptor.nextInChain = chainedDescriptor.get();
+    wgpu::Instance wgpuInstance = instance->Get();
+    surface = wgpuInstance.CreateSurface(&descriptor);
+    wgpu::SwapChainDescriptor swapChainDesc{};
+    swapChainDesc.format = wgpu::TextureFormat::BGRA8Unorm;
+    swapChainDesc.usage = wgpu::TextureUsage::RenderAttachment;
+    swapChainDesc.width = 640;
+    swapChainDesc.height = 480;
+    swapChainDesc.presentMode = wgpu::PresentMode::Fifo;
+    auto swapChain = device.CreateSwapChain(surface, &swapChainDesc);
+    return std::move(swapChain);
 
 }
 

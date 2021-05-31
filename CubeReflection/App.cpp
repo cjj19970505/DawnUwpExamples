@@ -92,8 +92,6 @@ struct Example
 
         queue = device.GetQueue();
         swapchain = GetSwapChain(device, mCoreWindow);
-        swapchain.Configure(wgpu::TextureFormat::RGBA8Unorm, wgpu::TextureUsage::RenderAttachment,
-            640, 480);
 
         initBuffers();
 
@@ -180,14 +178,14 @@ struct Example
         depthStencilView = CreateDefaultDepthStencilView(device);
 
         {
-            utils::ComboRenderPipelineDescriptor2 descriptor;
+            utils::ComboRenderPipelineDescriptor descriptor;
             descriptor.vertex.module = vsModule;
             descriptor.vertex.bufferCount = 1;
             descriptor.vertex.buffers = &vertexBufferLayout;
 
             descriptor.layout = pl;
             descriptor.cFragment.module = fsModule;
-            descriptor.cTargets[0].format = wgpu::TextureFormat::RGBA8Unorm;
+            descriptor.cTargets[0].format = wgpu::TextureFormat::BGRA8Unorm;
 
             wgpu::DepthStencilState* depthStencil =
                 descriptor.EnableDepthStencil(wgpu::TextureFormat::Depth24PlusStencil8);
@@ -198,14 +196,14 @@ struct Example
         }
 
         {
-            utils::ComboRenderPipelineDescriptor2 descriptor;
+            utils::ComboRenderPipelineDescriptor descriptor;
             descriptor.vertex.module = vsModule;
             descriptor.vertex.bufferCount = 1;
             descriptor.vertex.buffers = &vertexBufferLayout;
 
             descriptor.layout = pl;
             descriptor.cFragment.module = fsModule;
-            descriptor.cTargets[0].format = wgpu::TextureFormat::RGBA8Unorm;
+            descriptor.cTargets[0].format = wgpu::TextureFormat::BGRA8Unorm;
 
             wgpu::DepthStencilState* depthStencil =
                 descriptor.EnableDepthStencil(wgpu::TextureFormat::Depth24PlusStencil8);
@@ -217,14 +215,14 @@ struct Example
         }
 
         {
-            utils::ComboRenderPipelineDescriptor2 descriptor;
+            utils::ComboRenderPipelineDescriptor descriptor;
             descriptor.vertex.module = vsModule;
             descriptor.vertex.bufferCount = 1;
             descriptor.vertex.buffers = &vertexBufferLayout;
 
             descriptor.layout = pl;
             descriptor.cFragment.module = fsReflectionModule;
-            descriptor.cTargets[0].format = wgpu::TextureFormat::RGBA8Unorm;
+            descriptor.cTargets[0].format = wgpu::TextureFormat::BGRA8Unorm;
 
             wgpu::DepthStencilState* depthStencil =
                 descriptor.EnableDepthStencil(wgpu::TextureFormat::Depth24PlusStencil8);

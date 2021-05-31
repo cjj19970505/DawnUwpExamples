@@ -54,7 +54,7 @@ struct Example
         descriptor.size.height = 1024;
         descriptor.size.depthOrArrayLayers = 1;
         descriptor.sampleCount = 1;
-        descriptor.format = wgpu::TextureFormat::RGBA8Unorm;
+        descriptor.format = wgpu::TextureFormat::BGRA8Unorm;
         descriptor.mipLevelCount = 1;
         descriptor.usage = wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::Sampled;
         texture = device.CreateTexture(&descriptor);
@@ -87,8 +87,8 @@ struct Example
 
         queue = device.GetQueue();
         swapchain = GetSwapChain(device, mCoreWindow);
-        swapchain.Configure(wgpu::TextureFormat::RGBA8Unorm, wgpu::TextureUsage::RenderAttachment,
-            640, 480);
+        /*swapchain.Configure(wgpu::TextureFormat::RGBA8Unorm, wgpu::TextureUsage::RenderAttachment,
+            640, 480);*/
 
         initBuffers();
         initTextures();
@@ -126,7 +126,7 @@ struct Example
         descriptor.cBuffers[0].attributeCount = 1;
         descriptor.cAttributes[0].format = wgpu::VertexFormat::Float32x4;
         descriptor.cFragment.module = fsModule;
-        descriptor.cTargets[0].format = wgpu::TextureFormat::RGBA8Unorm;
+        descriptor.cTargets[0].format = wgpu::TextureFormat::BGRA8Unorm;
         descriptor.EnableDepthStencil(wgpu::TextureFormat::Depth24PlusStencil8);
 
         pipeline = device.CreateRenderPipeline2(&descriptor);
