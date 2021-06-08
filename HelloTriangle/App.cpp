@@ -118,7 +118,7 @@ struct Example
 
         depthStencilView = CreateDefaultDepthStencilView(device);
 
-        utils::ComboRenderPipelineDescriptor2 descriptor;
+        utils::ComboRenderPipelineDescriptor descriptor;
         descriptor.layout = utils::MakeBasicPipelineLayout(device, &bgl);
         descriptor.vertex.module = vsModule;
         descriptor.vertex.bufferCount = 1;
