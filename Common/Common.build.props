@@ -1,0 +1,38 @@
+<Project>
+  <PropertyGroup Condition="'$(DawnBaseDir)' == ''">
+    <DawnBaseDir>C:\Users\cjj19\Projects\dawn\</DawnBaseDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DawnGenDir>$(DawnBaseDir)out\uwp\$(Configuration)\</DawnGenDir>
+  </PropertyGroup>
+  
+  <!--https://stackoverflow.com/questions/67067814/visual-studio-doesnt-copy-the-pdb-file-into-appx-folder-->
+  <PropertyGroup>
+    <AppxPackageIncludePrivateSymbols>true</AppxPackageIncludePrivateSymbols>
+  </PropertyGroup>
+  
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(DawnBaseDir)src\include\;$(DawnGenDir)gen\src\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DawnBaseDir)src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(DawnGenDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>dawn_native.dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dawn_platform.dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dawn_proc.dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>obj\src\dawn\dawncpp\webgpu_cpp.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>obj\src\utils\dawn_utils.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>obj\third_party\vulkan-deps\spirv-tools\src\spvtools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>obj\src\common\common.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="$(DawnGenDir)\dawn_native.dll"/>
+    <CopyFileToFolders Include="$(DawnGenDir)\dawn_native.dll.pdb"/>
+    <CopyFileToFolders Include="$(DawnGenDir)\dawn_platform.dll"/>
+    <CopyFileToFolders Include="$(DawnGenDir)\dawn_platform.dll.pdb"/>
+    <CopyFileToFolders Include="$(DawnGenDir)\dawn_proc.dll"/>
+    <CopyFileToFolders Include="$(DawnGenDir)\dawn_proc.dll.pdb"/>
+  </ItemGroup>
+</Project>

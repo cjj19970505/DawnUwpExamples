@@ -1,5 +1,3 @@
 <Project>
-  <Target Name="ShowDawnInfo" BeforeTargets="PreBuildEvent">
-    <Message Importance="high" Text="Use dawn in $(DawnBaseDir)"/>
-  </Target>
+  <Import Project="..\Common\Common.build.targets"/>
 </Project>
