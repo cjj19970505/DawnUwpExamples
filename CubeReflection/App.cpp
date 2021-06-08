@@ -192,7 +192,7 @@ struct Example
             depthStencil->depthWriteEnabled = true;
             depthStencil->depthCompare = wgpu::CompareFunction::Less;
 
-            pipeline = device.CreateRenderPipeline2(&descriptor);
+            pipeline = device.CreateRenderPipeline(&descriptor);
         }
 
         {
@@ -211,7 +211,7 @@ struct Example
             depthStencil->stencilBack.passOp = wgpu::StencilOperation::Replace;
             depthStencil->depthCompare = wgpu::CompareFunction::Less;
 
-            planePipeline = device.CreateRenderPipeline2(&descriptor);
+            planePipeline = device.CreateRenderPipeline(&descriptor);
         }
 
         {
@@ -233,7 +233,7 @@ struct Example
             depthStencil->depthWriteEnabled = true;
             depthStencil->depthCompare = wgpu::CompareFunction::Less;
 
-            reflectionPipeline = device.CreateRenderPipeline2(&descriptor);
+            reflectionPipeline = device.CreateRenderPipeline(&descriptor);
         }
 
         cameraData.proj = glm::perspective(glm::radians(45.0f), 1.f, 1.0f, 100.0f);

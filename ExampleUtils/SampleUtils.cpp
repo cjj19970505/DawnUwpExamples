@@ -8,7 +8,7 @@ static wgpu::Surface surface;
 wgpu::Device CreateCppDawnDevice()
 {
 	instance = std::make_unique<dawn_native::Instance>();
-    //instance->SetBackendValidationLevel(dawn_native::BackendValidationLevel::Partial);
+    instance->SetBackendValidationLevel(dawn_native::BackendValidationLevel::Partial);
 	instance->DiscoverDefaultAdapters();
     dawn_native::Adapter backendAdapter;
     {
@@ -46,6 +46,25 @@ wgpu::SwapChain GetSwapChain(wgpu::Device device, winrt::Windows::UI::Core::Core
     auto swapChain = device.CreateSwapChain(surface, &swapChainDesc);
     return std::move(swapChain);
 
+}
+
+wgpu::SwapChain GetSwapChain(wgpu::Device device, winrt::Windows::UI::Xaml::Controls::SwapChainPanel const& swapChainPanel)
+{
+    auto desc = std::make_unique<wgpu::SurfaceDescriptorFromWindowsSwapChainPanel>();
+    desc->swapChainPanel = swapChainPanel.as<IUnknown>().get();
+    std::unique_ptr<wgpu::ChainedStruct> chainedDescriptor = std::move(desc);
+    wgpu::SurfaceDescriptor descriptor;
+    descriptor.nextInChain = chainedDescriptor.get();
+    wgpu::Instance wgpuInstance = instance->Get();
+    surface = wgpuInstance.CreateSurface(&descriptor);
+    wgpu::SwapChainDescriptor swapChainDesc{};
+    swapChainDesc.format = wgpu::TextureFormat::BGRA8Unorm;
+    swapChainDesc.usage = wgpu::TextureUsage::RenderAttachment;
+    swapChainDesc.width = static_cast<uint32_t>(swapChainPanel.Width());
+    swapChainDesc.height = static_cast<uint32_t>(swapChainPanel.Height());
+    swapChainDesc.presentMode = wgpu::PresentMode::Fifo;
+    auto swapChain = device.CreateSwapChain(surface, &swapChainDesc);
+    return std::move(swapChain);
 }
 
 wgpu::TextureView CreateDefaultDepthStencilView(const wgpu::Device& device) {

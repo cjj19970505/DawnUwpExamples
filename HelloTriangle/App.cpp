@@ -54,7 +54,7 @@ struct Example
         descriptor.size.height = 1024;
         descriptor.size.depthOrArrayLayers = 1;
         descriptor.sampleCount = 1;
-        descriptor.format = wgpu::TextureFormat::BGRA8Unorm;
+        descriptor.format = wgpu::TextureFormat::RGBA8Unorm;
         descriptor.mipLevelCount = 1;
         descriptor.usage = wgpu::TextureUsage::CopyDst | wgpu::TextureUsage::Sampled;
         texture = device.CreateTexture(&descriptor);
@@ -87,8 +87,6 @@ struct Example
 
         queue = device.GetQueue();
         swapchain = GetSwapChain(device, mCoreWindow);
-        /*swapchain.Configure(wgpu::TextureFormat::RGBA8Unorm, wgpu::TextureUsage::RenderAttachment,
-            640, 480);*/
 
         initBuffers();
         initTextures();
@@ -103,7 +101,7 @@ struct Example
         [[group(0), binding(0)]] var mySampler: sampler;
         [[group(0), binding(1)]] var myTexture : texture_2d<f32>;
 
-        [[stage(fragment)]] fn main([[builtin(frag_coord)]] FragCoord : vec4<f32>)
+        [[stage(fragment)]] fn main([[builtin(position)]] FragCoord : vec4<f32>)
                                  -> [[location(0)]] vec4<f32> {
             return textureSample(myTexture, mySampler, FragCoord.xy / vec2<f32>(640.0, 480.0));
         })");
@@ -129,7 +127,7 @@ struct Example
         descriptor.cTargets[0].format = wgpu::TextureFormat::BGRA8Unorm;
         descriptor.EnableDepthStencil(wgpu::TextureFormat::Depth24PlusStencil8);
 
-        pipeline = device.CreateRenderPipeline2(&descriptor);
+        pipeline = device.CreateRenderPipeline(&descriptor);
 
         wgpu::TextureView view = texture.CreateView();
 

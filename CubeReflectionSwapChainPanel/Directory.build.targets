@@ -1,0 +1,3 @@
+<Project>
+  <Import Project="..\Common\Common.build.targets"/>
+</Project>
